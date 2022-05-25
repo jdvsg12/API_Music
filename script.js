@@ -12,6 +12,7 @@ async function dataOfMovies(movie) {
   console.log(data);
 }
 
+
 function addMovies(){
   const inputSearch = document.getElementById("search");
   
@@ -19,7 +20,6 @@ function addMovies(){
     search: inputSearch.value,
   }
   dataOfMovies(movie.search);
-
 }
 
 function searchData() {
