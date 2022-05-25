@@ -11,7 +11,6 @@ async function dataOfMovies(movie) {
   console.log(data);
 }
 
-
 function addMovies(){
   const inputSearch = document.getElementById("search");
   
@@ -22,7 +21,6 @@ function addMovies(){
 }
 
 function searchData() {
-
   const buttonSerach = document.getElementById("add");
 
   buttonSerach.addEventListener("click", addMovies);
