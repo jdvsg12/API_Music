@@ -1,7 +1,6 @@
 async function dataOfMovies(movie) {
-  const url = `http://www.omdbapi.com/?apikey=6e25b9e4&t=${movie}`;
 
-  const respons = await fetch(`${url}`);
+  const respons = await fetch(`http://www.omdbapi.com/?apikey=6e25b9e4&t=${movie}`);
   const data = await respons.json();
 
   arrMovies = document.getElementById("cardsContainer");
