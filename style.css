@@ -1,0 +1,69 @@
+:root {
+    --main-color: #171717;
+    --second-color: rgb(31, 35, 45);
+    --main-color-font: white;
+    --second-color-font: #016dd9;
+    --title-font: 22px;
+    --content-font: 15px;
+    --copy-font: 10px;
+}
+
+body {
+    font-family: 'Roboto Flex', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: var(--main-color);
+}
+
+.logo {
+    font-family: 'Lobster', cursive;
+    font-size: var(--title-font);
+    color: var(--main-color-font);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: var(--content-font);
+    color: var(--main-color-font);
+    font-weight: 600;
+}
+
+section {
+    background: var(--second-color);
+    width: 100%;
+    height: 500px;
+    padding: 1rem;
+}
+
+#cardsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 190px;
+    background: #212121;
+}
+
+#cardsContainer h1 {
+    color: var(--main-color-font);
+    font-size: var(--title-font);
+    font-weight: 600;
+    margin: 5px;
+}
+
+#cardsContainer p {
+    color: var(--main-color-font);
+    font-size: var(--content-font);
+    font-weight: 500;
+    margin: 5px;
+}
