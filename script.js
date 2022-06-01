@@ -13,7 +13,7 @@ async function dataOfMovies(movie) {
   cardsContainer.innerHTML = `<img src=${movieData.Poster} height='300px'>
                                 <h1>${movieData.Title}</h1>
                                 <p>${movieData.Year}</p>
-                                <p>${movieData.Genre}</p>`;
+                                <p>${movieData.Type}</p>`;
   
   }
 }
