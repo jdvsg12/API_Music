@@ -1,15 +1,24 @@
+
 async function dataOfMovies(movie) {
 
-  const respons = await fetch(`https://www.omdbapi.com/?apikey=6e25b9e4&t=${movie}`);
+  const respons = await fetch(`https://www.omdbapi.com/?apikey=6e25b9e4&s=${movie}`);
   const data = await respons.json();
 
-  arrMovies = document.getElementById("cardsContainer");
-  cardsContainer.innerHTML = `<img src=${data.Poster} height='300px'>
-                                <h1>${data.Title}</h1>
-                                <p>${data.Year}</p>
-                                <p>${data.Genre}</p>`;
-  console.log(data);
+  
+  let movies = data.Search;
+
+  for(let movieData of movies) {
+
+    arrMovies = document.getElementById("cardsContainer");
+  cardsContainer.innerHTML = `<img src=${movieData.Poster} height='300px'>
+                                <h1>${movieData.Title}</h1>
+                                <p>${movieData.Year}</p>
+                                <p>${movieData.Genre}</p>`;
+  
+  }
 }
+
+
 
 function addMovies(){
   const inputSearch = document.getElementById("search");
@@ -41,7 +50,7 @@ function userNameData() {
       },
     });
     const user = document.getElementById("user");
-
+    localStorage.setItem("user", JSON.stringify(userName));
     user.innerText = userName;
   })();
 }
