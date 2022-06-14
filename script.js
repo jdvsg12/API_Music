@@ -1,13 +1,14 @@
-let itIsFavoritesDataMovies = [];
+let moviesFromLocalStorage = JSON.parse(localStorage.getItem("movies"));
+let itIsFavoritesDataMovies = moviesFromLocalStorage != null ? moviesFromLocalStorage : [];
 
 userNameData();
 searchData();
-handleShowFavorites()
-handleShowmovies ()
-
+showFavorites();
+handleShowFavorites();
+handleShowmovies();
 
 function userNameData() {
-  (async () => {
+    (async () => {
     const { value: userName } = await Swal.fire({
       title: "Ingresa tu nombre",
       input: "text",
@@ -62,36 +63,35 @@ function showMovies(movies) {
       <p>${movieData.Type}</p>
       <button id=${movieData.imdbID} >agregar</button>
     `;
-    
+
     showMovies.appendChild(arrMovies);
-    
+
     appendListenerToFavoriteButton(movieData);
   }
 }
 
 function handleAddToFavoriteClick(movieClick) {
-
   itIsFavoritesDataMovies.push(movieClick);
 
-    localStorage.setItem("movies", JSON.stringify(itIsFavoritesDataMovies));
-  
-    alertAddButton()
-    showFavorites();
+  localStorage.setItem("movies", JSON.stringify(itIsFavoritesDataMovies));
 
+  alertAddButton();
+  showFavorites();
 }
 
 function appendListenerToFavoriteButton(movieClick) {
   const buttonAddFavorite = document.getElementById(`${movieClick.imdbID}`);
 
-  buttonAddFavorite.addEventListener("click", () => handleAddToFavoriteClick(movieClick));
+  buttonAddFavorite.addEventListener("click", () =>
+    handleAddToFavoriteClick(movieClick)
+  );
 }
 
 function showFavorites() {
   let favoritesContainer = document.getElementById("cardContainerFavorite");
   favoritesContainer.innerHTML = "";
 
-
-  itIsFavoritesDataMovies.forEach(({ Poster, Title, Year, Type, imdbID}) => {
+  itIsFavoritesDataMovies.forEach(({ Poster, Title, Year, Type, imdbID }) => {
     let arrMovies = document.createElement("div");
 
     arrMovies.innerHTML = `
@@ -103,92 +103,84 @@ function showFavorites() {
     `;
 
     favoritesContainer.appendChild(arrMovies);
-  
+
     handleDeleteButtonClick(imdbID);
-  })
+  });
 }
 
-function deleteListnerFavoritesDataMovies (movieId) {
+function deleteListnerFavoritesDataMovies(movieId) {
+  itIsFavoritesDataMovies = itIsFavoritesDataMovies.filter(
+    (data) => data.imdbID !== movieId
+  );
 
-  itIsFavoritesDataMovies = itIsFavoritesDataMovies.filter((data) => data.imdbID !== movieId)
+localStorage.setItem("movies", JSON.stringify(itIsFavoritesDataMovies))
 
-  showFavorites()
+  showFavorites();
   alertDeleteButton();
-
 }
 
 function handleDeleteButtonClick(movieId) {
   const buttonDelete = document.getElementById(`${movieId}-delete`);
-  buttonDelete.addEventListener("click", () => deleteListnerFavoritesDataMovies(movieId));
+  buttonDelete.addEventListener("click", () =>
+    deleteListnerFavoritesDataMovies(movieId)
+  );
 }
 
 function alertAddButton() {
+  
   const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: "top-end",
     showConfirmButton: false,
     timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   Toast.fire({
-    icon: 'success',
-    title: 'Se ha agregado una película'
-  })
+    icon: "success",
+    title: "Se ha agregado una película",
+  });
 }
 
 function alertDeleteButton() {
   const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: "top-end",
     showConfirmButton: false,
     timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-  })
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   Toast.fire({
-    icon: 'warning',
-    title: 'Se ha eliminado un favorito'
-  })
+    icon: "warning",
+    title: "Se ha eliminado un favorito",
+  });
 }
 
 function handleShowFavorites() {
-
   const buttonShowFavorites = document.getElementById("btn-favorites");
-  buttonShowFavorites.addEventListener('click', showFavoritesMovies)
-
-  }
-
-function showFavoritesMovies () {
-
-  document.getElementById('favorites').style.display = 'block';
-  document.getElementById('movies').style.display = 'none';
-
-  // document.getElementById('favorites').toggleAttribute('block', true);
-  
+  buttonShowFavorites.addEventListener("click", showFavoritesMovies);
 }
 
-function handleShowmovies () {
+function showFavoritesMovies() {
+  document.getElementById("favorites").style.display = "block";
+  document.getElementById("movies").style.display = "none";
+}
 
+function handleShowmovies() {
   const buttonShowMovies = document.getElementById("btn-movies");
-  buttonShowMovies.addEventListener('click', showDataMovies)
-
+  buttonShowMovies.addEventListener("click", showDataMovies);
 }
 
-function showDataMovies () {
-
-
-  document.getElementById('favorites').style.display = 'none';
-  document.getElementById('movies').style.display = 'block';
-
-  // document.getElementById('favorites').toggleAttribute('block', true);
-  
+function showDataMovies() {
+  document.getElementById("favorites").style.display = "none";
+  document.getElementById("movies").style.display = "block";
 }
